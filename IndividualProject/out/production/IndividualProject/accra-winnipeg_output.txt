@@ -1,2 +1,6 @@
-Japan from Accra  Ghana 0 stops
-Zambia from Winnipeg  Canada 0 stops
+Japan from ACC to  Ghana 0 stops
+Zambia from ACC to  Canada 0 stops
+Total flights: 3
+Total additional stops: 0
+Total distance: 10453km
+Optimality criteria: flights

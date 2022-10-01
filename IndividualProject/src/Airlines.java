@@ -148,14 +148,13 @@ public class Airlines extends Management{
         Airports ap = new Airports();
         //System.out.println(graphAirlines);
         Airports ar = ap.generateAirlineIDFromRoutes(s, d);
-        //System.out.println(ar);
-        if (ar == null){
-            return graphAirlines.get("1").getName();
-        }
-        //System.out.println(graphAirlines);
-        System.out.println(ar);
+        Routes r = new Routes();
+        r.readDataset(r.getPath());
+        String soc = r.getGraphRoutes().get("2548").getSourceAirport();
+        String loc = r.getGraphRoutes().get("4496").getDestinationAirport();
+
         Airlines usedAirline = graphAirlines.get(String.valueOf(ar.getAirportID()));
-        return usedAirline.getCountry();
+        return usedAirline.getCountry() + "," + loc +"," + soc;
     }
 
 

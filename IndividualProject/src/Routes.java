@@ -77,6 +77,10 @@ public class Routes extends Management {
         return airlineID;
     }
 
+    public HashMap<String, Routes> getGraphRoutes() {
+        return graphRoutes;
+    }
+
     public void setAirlineID(String airlineID) {
         this.airlineID = airlineID;
     }

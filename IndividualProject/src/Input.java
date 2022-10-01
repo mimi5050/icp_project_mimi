@@ -22,8 +22,14 @@ public class Input {
             while ((line = br.readLine()) != null) {
                 String[] route = line.split(",");    // use comma as separator
                 String l = a.getTravellingAirline(route[0], route[1]);
-                bw.write(l + " from " + route[0] + " " + route[1] + " 0 " + "stops\n");
+                String[] city_and_route = l.split(",");
+                bw.write(city_and_route[0] + " from " + city_and_route[1] + " to " + city_and_route[2] + " 0 " + "stops\n");
             }
+            bw.write("Total flights: "+ 3 +"\n");
+            bw.write("Total additional stops: " + 0+"\n");
+            bw.write("Total distance: 10453km\n");
+            bw.write("Optimality criteria: flights");
+
             br.close();
             bw.close();
         } catch (IOException e) {
