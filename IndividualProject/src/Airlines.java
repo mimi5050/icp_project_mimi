@@ -2,13 +2,14 @@ import java.io.BufferedReader;
 import java.io.FileReader;// import file reader
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 /**
  * Individual project
  * Author: Miriam Uwingabiye
  */
-public class Airlines extends Management {
+public class Airlines extends Management{
 
     private final String path = "src/datasets/airlines.csv";
 
@@ -102,8 +103,38 @@ public class Airlines extends Management {
         return active;
     }
 
+    @Override
+    public String toString() {
+        return "Airline{" +
+                " airlineID='" + airlineID + '\'' +
+                ", name='" + name + '\'' +
+                ", alias='" + alias + '\'' +
+                ", IATA='" + IATA + '\'' +
+                ", ICAO='" + ICAO + '\'' +
+                ", callSign='" + callSign + '\'' +
+                ", country='" + country + '\'' +
+                ", active=" + active +
+                '}';
+    }
+
     public void setActive(char active) {
         this.active = active;
+    }
+
+    public void readDataset(String path) throws IOException {
+        String line = "";
+        BufferedReader br = new BufferedReader(new FileReader(path));
+        while ((line = br.readLine()) != null)
+        {
+            String[] airline = line.split(",");    // use comma as separator
+            //the source airline 0
+            // Storing the id as key
+            Airlines a = new Airlines(airline[0], airline[1], airline[2], airline[3],
+                    airline[4], airline[5], airline[6], airline[7].charAt(0));
+            graphAirlines.put(airline[0],a );
+            //transferring Airlines details as a value in a hashmap
+            //System.out.println(graphAirlines);
+        }
     }
 
     /**
@@ -114,38 +145,18 @@ public class Airlines extends Management {
      */
     public String getTravellingAirline(String s, String d) throws IOException {
         this.readDataset(path);
-        Routes r = new Routes();
-        r.readDataset(r.getPath());
-        Routes ar = r.generateAirlineIDFromRoutes(s, d);
+        Airports ap = new Airports();
+        //System.out.println(graphAirlines);
+        Airports ar = ap.generateAirlineIDFromRoutes(s, d);
+        //System.out.println(ar);
         if (ar == null){
             return graphAirlines.get("1").getName();
         }
-        return "BA";
-        //return graphAirlines.get(ar.getAirlineID()).getName();
+        //System.out.println(graphAirlines);
+        System.out.println(ar);
+        Airlines usedAirline = graphAirlines.get(String.valueOf(ar.getAirportID()));
+        return usedAirline.getCountry();
     }
 
-    @Override
-    public void readDataset(String path) throws IOException {
-        String line = "";
-        BufferedReader br = new BufferedReader(new FileReader(path));
-        while ((line = br.readLine()) != null)
-        {
-            String[] airline = line.split(",");    // use comma as separator
-            //the source airline 0
-            // Storing the id as key
-            if (!graphAirlines.containsKey(airline[0])){
-                graphAirlines.put(airline[0], new Airlines());
-            }
-            //transferring Airlines details as a value in a hashmap
-            graphAirlines.get(airline[0]).setAirlineID(airline[0]);
-            graphAirlines.get(airline[0]).setName(airline[1]);
-            graphAirlines.get(airline[0]).setAlias(airline[2]);
-            graphAirlines.get(airline[0]).setIATA(airline[3]);
-            graphAirlines.get(airline[0]).setICAO(airline[4]);
-            graphAirlines.get(airline[0]).setCallsign(airline[5]);
-            graphAirlines.get(airline[0]).setCountry(airline[6]);
-            graphAirlines.get(airline[0]).setActive(airline[7].charAt(0));
 
-        }
-    }
 }

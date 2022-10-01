@@ -169,6 +169,38 @@ public class Airports extends Management {
     }
 
 
+    @Override
+    public String toString() {
+        return "Airports{" +
+                "airportID=" + airportID +
+                ", name='" + name + '\'' +
+                ", city='" + city + '\'' +
+                ", country='" + country + '\'' +
+                ", IATA='" + IATA + '\'' +
+                ", ICAO='" + ICAO + '\'' +
+                ", latitude='" + latitude + '\'' +
+                ", longitude='" + longitude + '\'' +
+                ", altitude='" + altitude + '\'' +
+                ", timezone='" + timezone + '\'' +
+                ", DST='" + DST + '\'' +
+                ", tzDatabaseTimeZone='" + tzDatabaseTimeZone + '\'' +
+                ", type='" + type + '\'' +
+                ", source='" + source + '\'' +
+                '}';
+    }
+
+    public Airports generateAirlineIDFromRoutes(String s, String d) throws IOException {
+        Airports travelling = new Airports();
+        this.readDataset(path);
+        for (Airports a : airportGraph.values()) {
+            //this code fetches the id of the airport that has the source and destination
+            if (a.getCity().contains(s) || a.getCountry().contains(d)){
+                travelling = a;
+            }
+        }
+        return travelling;
+    }
+
     public void readDataset(String path) throws IOException {
         String line = "";
         BufferedReader br = new BufferedReader(new FileReader(path));
@@ -196,9 +228,6 @@ public class Airports extends Management {
             airportGraph.get(airport[0]).setDST(airport[10]);
             airportGraph.get(airport[0]).setTzDatabaseTimeZone(airport[11]);
             airportGraph.get(airport[0]).setType( airport[12]);
-
-
-
-}
+        }
     }
 }

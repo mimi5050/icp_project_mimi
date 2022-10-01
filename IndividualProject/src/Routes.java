@@ -49,16 +49,19 @@ public class Routes extends Management {
 
     }
 
-    public Routes generateAirlineIDFromRoutes(String s, String d) {
-        Routes travelling = new Routes();
-        for (Routes a : graphRoutes.values()) {
-            //this code fetches the id of the airport that has the source and destination
-            if (a.getSourceAirport().equals(s) && a.getDestinationAirport().equals(d)){
-                travelling = a;
-            }
-        }
-        return travelling;
-    }
+//    public Routes generateAirlineIDFromRoutes(String s, String d) {
+//        Airports travelling = new Airports();
+//        travelling.readDataset(travelling.getPath());
+//        for (Airports a : graphRoutes.values()) {
+//            //this code fetches the id of the airport that has the source and destination
+//            //System.out.println(a);
+//            //System.out.println("SOURCE: " + s);
+//            if (a.getSourceAirport().equals(s) || a.getDestinationAirport().equals(d)){
+//                travelling = a;
+//            }
+//        }
+//        return travelling;
+//    }
 
 
 
@@ -160,5 +163,20 @@ public class Routes extends Management {
             graphRoutes.get(route[1]).setEquipment(route[7]);
 
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Route{" +
+                "airline='" + airline + '\'' +
+                ", airlineID='" + airlineID + '\'' +
+                ", sourceAirport='" + sourceAirport + '\'' +
+                ", sourceAirportID='" + sourceAirportID + '\'' +
+                ", destinationAirport='" + destinationAirport + '\'' +
+                ", destinationAirportID='" + destinationAirportID + '\'' +
+                ", codeShare='" + codeShare + '\'' +
+                ", stops=" + stops +
+                ", equipment='" + equipment + '\'' +
+                '}';
     }
 }
